@@ -1,103 +1,81 @@
 import Image from "next/image";
+import Link from "next/link";
+import Links from "@/app/components/links";
+
+// Theme toggle icon component for better reusability
+const ThemeToggleIcon = () => (
+  <svg 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+    className="text-gray-500"
+    aria-label="Toggle theme"
+  >
+    <path 
+      d="M11.25 3.75V3C11.25 2.80109 11.329 2.61032 11.4697 2.46967C11.6103 2.32902 11.8011 2.25 12 2.25C12.1989 2.25 12.3897 2.32902 12.5303 2.46967C12.671 2.61032 12.75 2.80109 12.75 3V3.75C12.75 3.94891 12.671 4.13968 12.5303 4.28033C12.3897 4.42098 12.1989 4.5 12 4.5C11.8011 4.5 11.6103 4.42098 11.4697 4.28033C11.329 4.13968 11.25 3.94891 11.25 3.75ZM18 12C18 13.1867 17.6481 14.3467 16.9888 15.3334C16.3295 16.3201 15.3925 17.0892 14.2961 17.5433C13.1997 17.9974 11.9933 18.1162 10.8295 17.8847C9.66557 17.6532 8.59647 17.0818 7.75736 16.2426C6.91824 15.4035 6.3468 14.3344 6.11529 13.1705C5.88378 12.0067 6.0026 10.8003 6.45672 9.7039C6.91085 8.60754 7.67988 7.67047 8.66658 7.01118C9.65327 6.35189 10.8133 6 12 6C13.5908 6.00174 15.1159 6.63444 16.2407 7.75928C17.3656 8.88412 17.9983 10.4092 18 12ZM16.5 12C16.5 11.11 16.2361 10.24 15.7416 9.49993C15.2471 8.75991 14.5443 8.18314 13.7221 7.84254C12.8998 7.50195 11.995 7.41283 11.1221 7.58647C10.2492 7.7601 9.44736 8.18868 8.81802 8.81802C8.18868 9.44736 7.7601 10.2492 7.58647 11.1221C7.41283 11.995 7.50195 12.8998 7.84254 13.7221C8.18314 14.5443 8.75991 15.2471 9.49993 15.7416C10.24 16.2361 11.11 16.5 12 16.5C13.1931 16.4988 14.337 16.0243 15.1806 15.1806C16.0243 14.337 16.4988 13.1931 16.5 12ZM5.46938 6.53063C5.61011 6.67136 5.80098 6.75042 6 6.75042C6.19902 6.75042 6.38989 6.67136 6.53063 6.53063C6.67136 6.38989 6.75042 6.19902 6.75042 6C6.75042 5.80098 6.67136 5.61011 6.53063 5.46938L5.78062 4.71938C5.63989 4.57864 5.44902 4.49958 5.25 4.49958C5.05098 4.49958 4.86011 4.57864 4.71938 4.71938C4.57864 4.86011 4.49958 5.05098 4.49958 5.25C4.49958 5.44902 4.57864 5.63989 4.71938 5.78062L5.46938 6.53063ZM5.46938 17.4694L4.71938 18.2194C4.57864 18.3601 4.49958 18.551 4.49958 18.75C4.49958 18.949 4.57864 19.1399 4.71938 19.2806C4.86011 19.4214 5.05098 19.5004 5.25 19.5004C5.44902 19.5004 5.63989 19.4214 5.78062 19.2806L6.53063 18.5306C6.60031 18.4609 6.65558 18.3782 6.6933 18.2872C6.73101 18.1961 6.75042 18.0985 6.75042 18C6.75042 17.9015 6.73101 17.8039 6.6933 17.7128C6.65558 17.6218 6.60031 17.5391 6.53063 17.4694C6.46094 17.3997 6.37822 17.3444 6.28717 17.3067C6.19613 17.269 6.09855 17.2496 6 17.2496C5.90145 17.2496 5.80387 17.269 5.71283 17.3067C5.62178 17.3444 5.53906 17.3997 5.46938 17.4694ZM18 6.75C18.0985 6.75008 18.1961 6.73074 18.2871 6.6931C18.3782 6.65546 18.4609 6.60025 18.5306 6.53063L19.2806 5.78062C19.4214 5.63989 19.5004 5.44902 19.5004 5.25C19.5004 5.05098 19.4214 4.86011 19.2806 4.71938C19.1399 4.57864 18.949 4.49958 18.75 4.49958C18.551 4.49958 18.3601 4.57864 18.2194 4.71938L17.4694 5.46938C17.3644 5.57427 17.2928 5.70796 17.2639 5.85352C17.2349 5.99908 17.2497 6.14998 17.3065 6.28709C17.3633 6.42421 17.4596 6.54139 17.583 6.62379C17.7065 6.70619 17.8516 6.75012 18 6.75ZM18.5306 17.4694C18.3899 17.3286 18.199 17.2496 18 17.2496C17.801 17.2496 17.6101 17.3286 17.4694 17.4694C17.3286 17.6101 17.2496 17.801 17.2496 18C17.2496 18.199 17.3286 18.3899 17.4694 18.5306L18.2194 19.2806C18.2891 19.3503 18.3718 19.4056 18.4628 19.4433C18.5539 19.481 18.6515 19.5004 18.75 19.5004C18.8485 19.5004 18.9461 19.481 19.0372 19.4433C19.1282 19.4056 19.2109 19.3503 19.2806 19.2806C19.3503 19.2109 19.4056 19.1282 19.4433 19.0372C19.481 18.9461 19.5004 18.8485 19.5004 18.75C19.5004 18.6515 19.481 18.5539 19.4433 18.4628C19.4056 18.3718 19.3503 18.2891 19.2806 18.2194L18.5306 17.4694ZM3.75 11.25H3C2.80109 11.25 2.61032 11.329 2.46967 11.4697C2.32902 11.6103 2.25 11.8011 2.25 12C2.25 12.1989 2.32902 12.3897 2.46967 12.5303C2.61032 12.671 2.80109 12.75 3 12.75H3.75C3.94891 12.75 4.13968 12.671 4.28033 12.5303C4.42098 12.3897 4.5 12.1989 4.5 12C4.5 11.8011 4.42098 11.6103 4.28033 11.4697C4.13968 11.329 3.94891 11.25 3.75 11.25ZM12 19.5C11.8011 19.5 11.6103 19.579 11.4697 19.7197C11.329 19.8603 11.25 20.0511 11.25 20.25V21C11.25 21.1989 11.329 21.3897 11.4697 21.5303C11.6103 21.671 11.8011 21.75 12 21.75C12.1989 21.75 12.3897 21.671 12.5303 21.5303C12.671 21.3897 12.75 21.1989 12.75 21V20.25C12.75 20.0511 12.671 19.8603 12.5303 19.7197C12.3897 19.579 12.1989 19.5 12 19.5ZM21 11.25H20.25C20.0511 11.25 19.8603 11.329 19.7197 11.4697C19.579 11.6103 19.5 11.8011 19.5 12C19.5 12.1989 19.579 12.3897 19.7197 12.5303C19.8603 12.671 20.0511 12.75 20.25 12.75H21C21.1989 12.75 21.3897 12.671 21.5303 12.5303C21.671 12.3897 21.75 12.1989 21.75 12C21.75 11.8011 21.671 11.6103 21.5303 11.4697C21.3897 11.329 21.1989 11.25 21 11.25Z" 
+      fill="currentColor"
+    />
+  </svg>
+);
 
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <main className="flex flex-col gap-5 row-start-2 items-center sm:items-start">
+        {/* Avatar */}
+        <div className="size-28 bg-amber-50 rounded-full flex items-center justify-center">
+          <Image
+            width={90}
+            height={90}
+            src="/images/omikhe-avatar.png"
+            alt="Mike Msaka - Graphic Designer"
+            priority
+            className="rounded-full"
+          />
         </div>
+
+        {/* Name and title */}
+        <div className="text-center sm:text-left">
+          <h1 className="text-5xl font-bold">Omikhe</h1>
+          <h2 className="text-[#878787] mt-2">Graphic designer</h2>
+        </div>
+
+        {/* Social links */}
+        <nav className="flex gap-2 flex-wrap justify-center" aria-label="Social links">
+          {Links.map(({ href, icon, label }) => (
+            <Link
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-2.5 py-1.5 bg-neutral-800 hover:bg-neutral-700 transition-colors rounded-full text-white text-sm"
+              aria-label={label}
+            >
+              {icon}
+              {label}
+            </Link>
+          ))}
+        </nav>
+
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Theme toggle button */}
+      <button 
+        className=" p-2 rounded-full hover:bg-gray-100 transition-colors row-start-3"
+        aria-label="Toggle dark/light mode"
+        type="button"
+      >
+        <ThemeToggleIcon />
+      </button>
+      
+      <footer className="row-start-4 flex gap-6 flex-wrap items-center justify-center text-[#878787] text-sm">
+        © 2024 Omikhe
       </footer>
+
+      
     </div>
   );
 }
